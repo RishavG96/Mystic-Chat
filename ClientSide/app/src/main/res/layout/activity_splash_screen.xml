@@ -21,6 +21,6 @@
         android:text="Mystic Chat"
         android:gravity="center"
         android:fontFamily="monospace"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textStyle="bold"/>
 </LinearLayout>

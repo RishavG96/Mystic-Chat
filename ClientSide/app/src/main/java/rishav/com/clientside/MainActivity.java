@@ -52,16 +52,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sp=(Spinner)findViewById(R.id.spinner);
-        sp1=(Spinner)findViewById(R.id.spinnerqty);
-        ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,food);
-        sp.setAdapter(adapter);
-        ArrayAdapter adapter1=new ArrayAdapter(this,android.R.layout.simple_list_item_1,qty);
-        sp1.setAdapter(adapter1);
         tw=(TextView) findViewById(R.id.header);
         loginPanel = (LinearLayout)findViewById(R.id.loginpanel);
         chatPanel = (LinearLayout)findViewById(R.id.chatpanel);
-
+        editTextSay = (EditText)findViewById(R.id.say);
         editTextUserName = (EditText) findViewById(R.id.username);
         editTextAddress = (EditText) findViewById(R.id.address);
         textPort = (TextView) findViewById(R.id.port);
@@ -77,28 +71,6 @@ public class MainActivity extends AppCompatActivity {
         buttonSend = (Button)findViewById(R.id.send);
 
         buttonSend.setOnClickListener(buttonSendOnClickListener);
-        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selected_item=food[i];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selected_qty=i;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
     OnClickListener buttonDisconnectOnClickListener = new OnClickListener() {
 
@@ -116,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            if (sp.getSelectedItem()=="Select food item.." || sp1.getSelectedItem()=="Select quantity..") {
+            if (editTextSay.getText().toString().equals("")) {
                 return;
             }
 
@@ -124,9 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            chatClientThread.sendMsg(sp.getSelectedItem()+":"+sp1.getSelectedItem() + "\n");
-            sp.setSelection(0);
-            sp1.setSelection(0);
+            chatClientThread.sendMsg(editTextSay.getText().toString() + "\n");
+            editTextSay.setText("");
         }
 
     };
@@ -152,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             msgLog = "";
             chatMsg.setText(msgLog);
             loginPanel.setVisibility(View.GONE);
-            tw.setText("Make the order!");
+            tw.setText("Let's Chat!");
             chatPanel.setVisibility(View.VISIBLE);
 
             chatClientThread = new ChatClientThread(

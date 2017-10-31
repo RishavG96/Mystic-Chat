@@ -12,7 +12,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Connect to Chief!"
+        android:text="Connect to Friends!"
         android:textStyle="bold"
         android:gravity="center_horizontal"
         android:textSize="50sp"/>
@@ -63,14 +63,14 @@
         android:orientation="vertical"
         android:visibility="gone" >
 
-        <Spinner
-            android:id="@+id/spinnerqty"
+        <EditText
+            android:id="@+id/say"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"
+            android:hint="Say something" />
+
 
         <Button
             android:id="@+id/send"
@@ -100,7 +100,7 @@
 
             <TextView
                 android:id="@+id/chatmsg"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </ScrollView>
