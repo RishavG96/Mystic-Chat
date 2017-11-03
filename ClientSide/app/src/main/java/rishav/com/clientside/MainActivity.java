@@ -165,16 +165,11 @@ public class MainActivity extends AppCompatActivity {
                     if (dataInputStream.available() > 0) {
                         String s= dataInputStream.readUTF();
                         msgLog += s;
-                        /*if(s.contains(":"))
-                        {
-                            int index=s.indexOf(":");
-                            s=s.substring(index+1);
-                        }*/
-                        /*NotificationManager nm=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        NotificationManager nm=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                         Notification.Builder nb=new Notification.Builder(MainActivity.this);
                         nb.setTicker("My Notification");
-                        nb.setSmallIcon(R.mipmap.ic_launcher);
-                        nb.setContentTitle("Mystic Chat");
+                        nb.setSmallIcon(R.drawable.ic_chat_black_24dp);
+                        nb.setContentTitle("Chat Bees");
                         nb.setContentText("You have a new message");
                         nb.setSubText(s);
                         nb.setAutoCancel(true);
@@ -182,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         PendingIntent pi=PendingIntent.getActivity(MainActivity.this, 1,i,0);
                         nb.setContentIntent(pi);
                         Notification n=nb.build();
-                        nm.notify(1,n);*/
+                        nm.notify(1,n);
                         MainActivity.this.runOnUiThread(new Runnable() {
 
                             @Override

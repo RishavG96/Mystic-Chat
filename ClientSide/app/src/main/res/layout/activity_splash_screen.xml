@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2.08"
-        android:text="Mystic Chat"
+        android:text="Chat Bees"
         android:gravity="center"
         android:fontFamily="monospace"
         android:textSize="40sp"
