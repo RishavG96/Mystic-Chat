@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Connect to Friends!"
         android:textStyle="bold"
+        android:textColor="#000000"
         android:gravity="center_horizontal"
         android:textSize="50sp"/>
 
@@ -30,6 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textColor="#000000"
+            android:textColorHint="#A9A9A9"
             android:hint="Enter Username" />
 
         <EditText
@@ -37,12 +40,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:textColor="#000000"
+            android:textColorHint="#A9A9A9"
             android:hint="Enter server address" />
 
         <TextView
             android:id="@+id/port"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:layout_marginTop="15dp"/>
 
         <Button
@@ -69,6 +75,8 @@
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#A9A9A9"
             android:hint="Say something" />
 
 
@@ -100,7 +108,8 @@
 
             <TextView
                 android:id="@+id/chatmsg"
-                android:textSize="25sp"
+                android:textSize="22sp"
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </ScrollView>

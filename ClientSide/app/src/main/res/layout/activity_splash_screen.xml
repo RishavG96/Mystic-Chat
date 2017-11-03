@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="378dp"
         android:layout_weight="1.00"
-        app:srcCompat="@drawable/welcome_oworld" />
+        app:srcCompat="@drawable/icon" />
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
