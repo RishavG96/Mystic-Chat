@@ -1,5 +1,11 @@
 package rishav.com.clientside;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -9,6 +15,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,30 +41,27 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout loginPanel, chatPanel;
 
     EditText editTextUserName, editTextAddress;
-    Button buttonConnect;
+    Button buttonConnect, call;
     TextView chatMsg, textPort;
     TextView tw;
     EditText editTextSay;
     Button buttonSend;
     Button buttonDisconnect;
-    Spinner sp,sp1;
-    String selected_item="";
-    int selected_qty=0;
-    String food[]={"Select food item..","Chicken Roll","Paneer Roll","Egg Roll","Veg Roll"};
-    String qty[]={"Select quantity..","1","2","3","4","5"};
     String msgLog = "";
 
     ChatClientThread chatClientThread = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tw=(TextView) findViewById(R.id.header);
-        loginPanel = (LinearLayout)findViewById(R.id.loginpanel);
-        chatPanel = (LinearLayout)findViewById(R.id.chatpanel);
-        editTextSay = (EditText)findViewById(R.id.say);
+        tw = (TextView) findViewById(R.id.header);
+        loginPanel = (LinearLayout) findViewById(R.id.loginpanel);
+        chatPanel = (LinearLayout) findViewById(R.id.chatpanel);
+        editTextSay = (EditText) findViewById(R.id.say);
         editTextUserName = (EditText) findViewById(R.id.username);
         editTextAddress = (EditText) findViewById(R.id.address);
+        call = (Button) findViewById(R.id.call);
         textPort = (TextView) findViewById(R.id.port);
         textPort.setText("port: " + SocketServerPORT);
         buttonConnect = (Button) findViewById(R.id.connect);
@@ -68,8 +72,26 @@ public class MainActivity extends AppCompatActivity {
         buttonDisconnect.setOnClickListener(buttonDisconnectOnClickListener);
 
 
-        buttonSend = (Button)findViewById(R.id.send);
+        buttonSend = (Button) findViewById(R.id.send);
 
+        call.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:8961682172"));
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                startActivity(callIntent);
+            }
+        });
         buttonSend.setOnClickListener(buttonSendOnClickListener);
     }
     OnClickListener buttonDisconnectOnClickListener = new OnClickListener() {
@@ -115,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             String textAddress = editTextAddress.getText().toString();
             if (textAddress.equals("")) {
-                Toast.makeText(MainActivity.this, "Enter Addresse",
+                Toast.makeText(MainActivity.this, "Enter Address",
                         Toast.LENGTH_LONG).show();
                 return;
             }
@@ -123,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             msgLog = "";
             chatMsg.setText(msgLog);
             loginPanel.setVisibility(View.GONE);
-            tw.setText("Let's Chat!");
+            tw.setText("Let's Spy!");
             chatPanel.setVisibility(View.VISIBLE);
 
             chatClientThread = new ChatClientThread(
@@ -169,13 +191,17 @@ public class MainActivity extends AppCompatActivity {
                         Notification.Builder nb=new Notification.Builder(MainActivity.this);
                         nb.setTicker("My Notification");
                         nb.setSmallIcon(R.drawable.ic_chat_black_24dp);
-                        nb.setContentTitle("Chat Bees");
-                        nb.setContentText("You have a new message");
-                        nb.setSubText(s);
+                        nb.setContentTitle("Spy Crew");
+                        nb.setContentText(s);
                         nb.setAutoCancel(true);
                         Intent i=new Intent(MainActivity.this,MainActivity.class);
-                        PendingIntent pi=PendingIntent.getActivity(MainActivity.this, 1,i,0);
-                        nb.setContentIntent(pi);
+                        /*PendingIntent pi=PendingIntent.getActivity(MainActivity.this, 1,i,0);
+                        nb.setContentIntent(pi);*/
+                        /*nb.setLights(Color.BLUE,500,500);*/
+                        long[] pattern = {500,500};
+                        nb.setVibrate(pattern);
+                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        nb.setSound(alarmSound);
                         Notification n=nb.build();
                         nm.notify(1,n);
                         MainActivity.this.runOnUiThread(new Runnable() {

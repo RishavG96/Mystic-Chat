@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.DataInputStream;
@@ -23,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
     static final int SocketServerPORT = 8080;
 
     TextView infoIp, infoPort, chatMsg;
-
+    ScrollView sc;
     String msgLog = "";
-
+    Button b1,b2;
+    static boolean flag=false;
     List<ChatClient> userList;
 
     ServerSocket serverSocket;
@@ -35,14 +39,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         infoIp = (TextView) findViewById(R.id.infoip);
         infoPort = (TextView) findViewById(R.id.infoport);
+        sc=(ScrollView)findViewById(R.id.scrollView);
+        b1=(Button)findViewById(R.id.show1);
+        b2=(Button)findViewById(R.id.close1);
         chatMsg = (TextView) findViewById(R.id.chatmsg);
-
+        sc.setVisibility(View.INVISIBLE);
         infoIp.setText(getIpAddress());
 
         userList = new ArrayList<ChatClient>();
 
         ChatServerThread chatServerThread = new ChatServerThread();
         chatServerThread.start();
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(flag==false) {
+                    sc.setVisibility(View.VISIBLE);
+                    b1.setText("Hide Text");
+                    flag = true;
+                }
+                else
+                {
+                    sc.setVisibility(View.INVISIBLE);
+                    b1.setText("Show Chat");
+                    flag=false;
+                }
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
     @Override
     protected void onDestroy() {
@@ -69,11 +98,12 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void run() {
-                        infoPort.setText("I'm waiting here: " + serverSocket.getLocalPort());
+                        infoPort.setText("Port: " + serverSocket.getLocalPort());
                     }
                 });
 
                 while (true) {
+
                     socket = serverSocket.accept();
                     ChatClient client = new ChatClient();
                     userList.add(client);
@@ -194,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,
                                 connectClient.name + " removed.", Toast.LENGTH_LONG).show();
 
-                        msgLog += "-- " + connectClient.name + " left\n";
+                        msgLog += "- " + connectClient.name + " left\n";
                         MainActivity.this.runOnUiThread(new Runnable() {
 
                             @Override
@@ -203,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-                        broadcastMsg("-- " + connectClient.name + " left\n");
+                        broadcastMsg("- " + connectClient.name + " left\n");
                     }
                 });
             }

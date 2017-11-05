@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context="rishav.com.serverside.MainActivity"
     android:orientation="vertical"
-    android:background="#FFA07A">
+    android:background="@drawable/images">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Chat Server"
+        android:textColor="@color/colorAccent"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -19,24 +20,58 @@
         android:id="@+id/infoport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:textColor="@color/colorAccent"
+        android:textSize="17sp"
         android:textStyle="italic|bold" />
 
     <TextView
         android:id="@+id/infoip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="17sp"
         android:textStyle="italic|bold" />
+    <LinearLayout
+        android:id="@+id/buttonPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/show1"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorAccent"
+            android:text="Show Chat" />
+
+        <Button
+            android:id="@+id/close1"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorAccent"
+            android:text="CLOSE SERVER" />
+
+    </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5DEB3">
+        android:layout_marginTop="10dp"
+        >
 
         <TextView
             android:id="@+id/chatmsg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            />
     </ScrollView>
 
 </LinearLayout>
